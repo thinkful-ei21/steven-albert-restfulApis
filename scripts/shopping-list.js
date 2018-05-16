@@ -1,7 +1,9 @@
-/* global store */
+'use strict';
+
+/* global store, api */
 
 // eslint-disable-next-line no-unused-vars
-const shoppingList = (function(){
+const shoppingList = (function() {
 
   function generateItemElement(item) {
     let itemTitle = `<span class="shopping-item shopping-item__checked">${item.name}</span>`;
@@ -60,8 +62,10 @@ const shoppingList = (function(){
       event.preventDefault();
       const newItemName = $('.js-shopping-list-entry').val();
       $('.js-shopping-list-entry').val('');
-      store.addItem(newItemName);
-      render();
+      api.createItem(newItemName, (newItem) => {
+        store.addItem(newItem);
+        render();
+      });
     });
   }
   

@@ -1,14 +1,17 @@
-/* global shoppingList, store */
+'use strict';
+
+/* global shoppingList, store, Item, api */
 
 $(document).ready(function() {
   shoppingList.bindEventListeners();
   shoppingList.render();
+
+  api.getItems((items) => {
+    items.forEach((item) => store.addItem(item));
+    shoppingList.render();
+  });
 });
 
-store.items.push(Item.create('apples'));
 
-api.getItems(function(data) {
-  console.log(data);
-});
-
-console.log(api.BASE_URL);
+// this is old code for when data is not from server
+// store.items.push(Item.create('apples'));
